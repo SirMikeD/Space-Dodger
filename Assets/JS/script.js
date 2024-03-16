@@ -161,12 +161,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
     function createDarkPurpleBlock() {
         const size = Math.floor(Math.random() * 4 + 1); // Random size from 1 to 4
+        const imageSize = Math.floor(Math.random() * 50) + 30; // Random size for image from 30px to 80px
         const darkPurpleBlock = document.createElement('div');
         darkPurpleBlock.classList.add('block', 'darkpurple');
         darkPurpleBlock.style.width = `${size * 20}px`; // Set width based on size
         darkPurpleBlock.style.height = `${size * 20}px`; // Set height based on size
         darkPurpleBlock.style.left = `${Math.random() < 0.5 ? -20 : gameArea.clientWidth + 20}px`; // Random horizontal position (left or right side)
         darkPurpleBlock.style.top = `${Math.random() * (gameArea.clientHeight - 20)}px`; // Random vertical position
+        darkPurpleBlock.style.backgroundSize = `${imageSize}px`; // Set background size for the image
         gameArea.appendChild(darkPurpleBlock);
     }
 

@@ -48,9 +48,13 @@ body {
 
 /* Styling for the dark purple blocks */
 .darkpurple {
-    width: 20px;
-    height: 20px;
-    background-color: #16020d; /* Dark purple blocks */
+    width: 30px; /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+    background-image: url('../Images/alienworld.png'); /* URL to your image */
+    background-size: 30px; /* Set background size to match block size */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    border-radius: 50%; /* Make the block circular */
 }
 
 /* Styling for the red blocks */
