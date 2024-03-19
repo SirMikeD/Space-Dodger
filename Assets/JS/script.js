@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // DOM elements - refers to these nodes in the DOM tree, representing HTML elements such as <div>,
+    // <p>, <span>, <img>, etc. Each element in the DOM has properties and methods that allow you to 
+    // interact with and modify them dynamically.
     const gameArea = document.getElementById('game-area');
     const startMenu = document.getElementById('start-menu');
     const startButton = document.getElementById('start-btn');
@@ -6,22 +9,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const topScoresList = document.getElementById('top-scores');
     const timerDisplay = document.getElementById('timer');
 
+    // Initialize variables
     let topScores = JSON.parse(localStorage.getItem('topScores')) || [];
-
     let playerNameEntered = false;
-
     let baseInterval = 50; // Initial interval for moving blocks
-
     let speedIncreaseInterval = 10000; // Interval for increasing speed (in milliseconds)
+    let cursor; // Declare cursor variable
+    let startTime; // Variable to store start time
 
-
+    // Render top scores
     renderTopScores();
 
+    // Function to render top scores
     function renderTopScores() {
-        // Sort topScores array by score in ascending order
-        topScores.sort((a, b) => a.score - b.score);
+        topScores.sort((a, b) => a.score - b.score); // Sort topScores array by score in ascending order
+        topScoresList.innerHTML = ''; // Clear existing top scores
         // Display top 10 scores
-        topScoresList.innerHTML = '';
         for (let i = 0; i < Math.min(10, topScores.length); i++) {
             const listItem = document.createElement('li');
             listItem.textContent = `${topScores[i].name}: ${topScores[i].score} seconds`;
@@ -29,48 +32,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to start the game
     function startGame() {
+        // Hide start menu and show game area
         startMenu.style.display = 'none';
         gameArea.classList.add('game-started');
         gameArea.style.cursor = 'none';
         timerDisplay.style.display = 'block'; // Show timer display when the game starts
-        attachCursor();
-        startTimer();
+        attachCursor(); // Attach cursor to the game area
+        startTimer(); // Start the game timer
         setInterval(createGreenCircle, 5000); // Create a green circle every 5 seconds
         setInterval(increaseSpeed, speedIncreaseInterval); // Set interval for increasing speed
         moveRedBlocks(); // Move red blocks immediately after starting the game
         setInterval(moveRedBlocks, baseInterval); // Use baseInterval for moving red blocks
-        setInterval(createRedBlock, 1000);
+        setInterval(createRedBlock, 1000); // Create red blocks periodically
         moveBlackBoxes(); // Move black boxes immediately after starting the game
         setInterval(moveBlackBoxes, baseInterval); // Use baseInterval for moving black boxes
-        setInterval(createBlackBox, 2000);
+        setInterval(createBlackBox, 2000); // Create black boxes periodically
         moveDarkPurpleBlocks(); // Move dark purple blocks immediately after starting the game
         setInterval(moveDarkPurpleBlocks, baseInterval); // Use baseInterval for moving dark purple blocks
-        setInterval(createDarkPurpleBlock, 2000);
+        setInterval(createDarkPurpleBlock, 2000); // Create dark purple blocks periodically
     }
-    
+
+    // Function to increase speed
     function increaseSpeed() {
         baseInterval -= 5; // Decrease the base interval by 5 milliseconds
         console.log("Speed increased!");
     }
 
-    function increaseTimer(seconds) {
-        startTime += seconds * 1000; // Add seconds to the start time
-        updateTimer(); // Update the timer display
-    }
-    
-    let cursor; // Declare cursor variable
-    let startTime; // Variable to store start time
-
+    // Function to attach cursor to the game area
     function attachCursor() {
         cursor = document.createElement('div'); // Assign to the global cursor variable
         cursor.classList.add('cursor');
         gameArea.appendChild(cursor);
-    
+
+        // Update cursor position based on mouse movement
         document.addEventListener('mousemove', function (event) {
             cursor.style.left = `${event.clientX}px`;
             cursor.style.top = `${event.clientY}px`;
-    
+
             const cursorRect = cursor.getBoundingClientRect();
             const greenCircles = document.querySelectorAll('.green-circle');
             greenCircles.forEach(circle => {
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Function to start the game timer
     function startTimer() {
         startTime = performance.now(); // Record the start time
         updateTimer(); // Update the timer display
@@ -90,34 +91,77 @@ document.addEventListener('DOMContentLoaded', function () {
         setInterval(updateTimer, 100);
     }
 
+    // Function to update the game timer display
     function updateTimer() {
         const currentTime = performance.now(); // Get the current time
         const elapsedTime = (currentTime - startTime) / 1000; // Calculate elapsed time in seconds
         timerDisplay.textContent = `Time: ${elapsedTime.toFixed(2)} seconds`; // Update the timer display
     }
 
+// Function to create a new red block
+function createRedBlock() {
+    const redContainer = document.createElement('div');
+    redContainer.classList.add('red-container'); // Add class for the rotating container
+
+    const redBlock = document.createElement('div');
+    redBlock.classList.add('red'); // Add class for the red block
+
+    const redImage = document.createElement('div');
+    redImage.classList.add('red-image'); // Add class for the image container
+
+    // Append the red image container to the red block
+    // Append the red block to the rotating container
+    redContainer.appendChild(redBlock);
+
+    // Append the rotating container to the game area
+    gameArea.appendChild(redContainer);
+
+    // Set initial position at a random horizontal position at the top of the screen
+    redContainer.style.left = `${Math.random() * (gameArea.clientWidth - 50)}px`; // Random horizontal position
+    redContainer.style.top = `${-Math.random() * gameArea.clientHeight}px`; // Random position above the game area
+
+    // Randomize the falling speed
+    const fallingSpeed = Math.random() * 3 + 1; // Random value between 1 and 4
+    const moveInterval = setInterval(() => {
+        // Move the red block down
+        redContainer.style.top = `${parseFloat(redContainer.style.top) + fallingSpeed}px`;
+
+        // Remove block if it goes out of bounds
+        if (parseFloat(redContainer.style.top) > gameArea.clientHeight) {
+            clearInterval(moveInterval); // Stop the interval
+            gameArea.removeChild(redContainer); // Remove the red block from the game area
+        }
+    }, 50); // Move the red block every 50 milliseconds
+}
+
+    // Function to move red blocks smoothly
     function moveRedBlocks() {
         const redBlocks = document.querySelectorAll('.red');
         redBlocks.forEach(block => {
-            block.style.top = `${block.offsetTop + 5}px`; // Move block downwards
-            if (block.offsetTop > gameArea.clientHeight) {
+            // Generate random velocities for horizontal and vertical movement
+            const velocityX = (Math.random() - 0.5) * 2; // Random value between -1 and 1
+            const velocityY = Math.random() * 2 + 1; // Random value between 1 and 3
+            // Update block position based on current velocity
+            block.style.top = `${block.offsetTop + velocityY}px`; // Move block vertically
+            block.style.left = `${block.offsetLeft + velocityX}px`; // Move block horizontally
+
+            // Remove block if it goes out of bounds
+            if (
+                block.offsetTop > gameArea.clientHeight ||
+                block.offsetLeft < -50 ||
+                block.offsetLeft > gameArea.clientWidth
+            ) {
                 gameArea.removeChild(block);
             }
         });
     }
 
-    function createRedBlock() {
-        const block = document.createElement('div');
-        block.classList.add('block', 'red');
-        block.style.left = `${Math.random() * (gameArea.clientWidth - 20)}px`; // Random horizontal position
-        block.style.top = '-20px'; // Start from the top of the screen
-        gameArea.appendChild(block);
-    }
-
+    // Function to move black boxes horizontally
     function moveBlackBoxes() {
         const blackBoxes = document.querySelectorAll('.black');
         blackBoxes.forEach(blackBox => {
             blackBox.style.left = `${parseInt(blackBox.style.left) + 5}px`; // Move black box to the right
+            // Remove black box if it goes out of bounds
             if (parseInt(blackBox.style.left) > gameArea.clientWidth) {
                 gameArea.removeChild(blackBox);
             } else {
@@ -125,14 +169,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 const cursorRect = cursor.getBoundingClientRect();
                 const blackBoxRect = blackBox.getBoundingClientRect();
                 if (isColliding(cursorRect, blackBoxRect)) {
-                    endGame();
+                    endGame(); // End the game if collision occurs
                 }
             }
         });
     }
-    
+
+    // Function to create a new black box
     function createBlackBox() {
-        const size = Math.floor(Math.random() * 8 + 1); // Random size from 1 to 6
+        const size = Math.floor(Math.random() * 8 + 1); // Random size from 1 to 8
         const blackBox = document.createElement('div');
         blackBox.classList.add('block', 'black');
         blackBox.style.width = `${size * 20}px`; // Set width based on size
@@ -158,26 +203,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    
+
     function createDarkPurpleBlock() {
-        const size = Math.floor(Math.random() * 9 + 1); // Random size from 1 to 6
-        const imageSize = Math.floor(Math.random() * 50) + 30; // Random size for image from 30px to 80px
+        // Random size for the dark purple block (1 to 9)
+        const size = Math.floor(Math.random() * 9 + 1);
+        // Random size for the image (30px to 80px)
+        const imageSize = Math.floor(Math.random() * 50) + 30;
+        // Create a new dark purple block element
         const darkPurpleBlock = document.createElement('div');
-        darkPurpleBlock.classList.add('block', 'darkpurple');
+        darkPurpleBlock.classList.add('block', 'darkpurple'); // Add CSS classes to the block
         darkPurpleBlock.style.width = `${size * 20}px`; // Set width based on size
         darkPurpleBlock.style.height = `${size * 20}px`; // Set height based on size
-        darkPurpleBlock.style.left = `${Math.random() < 0.5 ? -20 : gameArea.clientWidth + 20}px`; // Random horizontal position (left or right side)
-        darkPurpleBlock.style.top = `${Math.random() * (gameArea.clientHeight - 20)}px`; // Random vertical position
+        // Random horizontal position (left or right side)
+        darkPurpleBlock.style.left = `${Math.random() < 0.5 ? -20 : gameArea.clientWidth + 20}px`;
+        // Random vertical position
+        darkPurpleBlock.style.top = `${Math.random() * (gameArea.clientHeight - 20)}px`;
         darkPurpleBlock.style.backgroundSize = `${imageSize}px`; // Set background size for the image
-        gameArea.appendChild(darkPurpleBlock);
+        gameArea.appendChild(darkPurpleBlock); // Add the block to the game area
     }
-
+    
     function createGreenCircle() {
+        // Create a new green circle element
         const circle = document.createElement('div');
-        circle.classList.add('green-circle');
+        circle.classList.add('green-circle'); // Add CSS class to the circle
         circle.style.left = `${Math.random() * (gameArea.clientWidth - 20)}px`; // Random horizontal position
         circle.style.top = `${Math.random() * (gameArea.clientHeight - 20)}px`; // Random vertical position
-        gameArea.appendChild(circle);
+        gameArea.appendChild(circle); // Add the circle to the game area
     
         // Add event listener to detect hover over the green circle
         circle.addEventListener('mouseover', function () {
@@ -192,17 +243,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 7000);
     }
-
+    
     function increaseTimer(seconds) {
         startTime += seconds * 1000; // Add seconds to the start time
         updateTimer(); // Update the timer display
     }
     
     function endGame() {
-        alert('Game Over!');
-        startMenu.style.display = 'block';
-        gameArea.classList.remove('game-started');
-        gameArea.style.cursor = 'auto';
+        alert('Game Over!'); // Display game over alert
+        startMenu.style.display = 'block'; // Show the start menu
+        gameArea.classList.remove('game-started'); // Remove game-started class from game area
+        gameArea.style.cursor = 'auto'; // Change cursor style to auto
         timerDisplay.style.display = 'none'; // Hide timer display when the game ends
     
         // Decrease speed or increase interval time
@@ -211,27 +262,27 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Check if the player's name has already been entered
         if (!playerNameEntered) {
-            const playerName = prompt('Enter your name:');
+            const playerName = prompt('Enter your name:'); // Prompt user to enter their name
             if (playerName) {
-                const gameTime = calculateGameTime();
-                topScores.push({ name: playerName, score: gameTime });
-                localStorage.setItem('topScores', JSON.stringify(topScores));
-                renderTopScores();
+                const gameTime = calculateGameTime(); // Calculate game time
+                topScores.push({ name: playerName, score: gameTime }); // Add player's score to topScores array
+                localStorage.setItem('topScores', JSON.stringify(topScores)); // Store top scores in local storage
+                renderTopScores(); // Render updated top scores
             }
-            // Set playerNameEntered to true to indicate that the player's name has been entered
-            playerNameEntered = true;
+            playerNameEntered = true; // Set playerNameEntered to true
         }
     
-        gameArea.innerHTML = '';
+        gameArea.innerHTML = ''; // Clear the game area
     }
-
+    
     function calculateGameTime() {
         const currentTime = performance.now(); // Get the current time
         const elapsedTime = (currentTime - startTime) / 1000; // Calculate elapsed time in seconds
-        return elapsedTime.toFixed(2); // Round to 2 decimal places
+        return elapsedTime.toFixed(2); // Round to 2 decimal places and return
     }
     
     function isColliding(rect1, rect2) {
+        // Check if the two rectangles are colliding
         return !(rect1.right < rect2.left ||
             rect1.left > rect2.right ||
             rect1.bottom < rect2.top ||
@@ -239,11 +290,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function resetScores() {
-        localStorage.removeItem('topScores');
-        topScores = [];
-        renderTopScores();
+        localStorage.removeItem('topScores'); // Remove top scores from local storage
+        topScores = []; // Clear top scores array
+        renderTopScores(); // Render empty top scores list
     }
     
-    startButton.addEventListener('click', startGame);
-    resetButton.addEventListener('click', resetScores); // Add event listener for reset button
+    // Add event listener for start button click event
+    startButton.addEventListener('click', function() {
+        console.log('Start button clicked!');
+        startGame(); // Call the startGame function
+    });
+    // Add event listener for reset button click event
+    resetButton.addEventListener('click', resetScores);
 });

@@ -1,17 +1,17 @@
 /* Reset default margin, padding, and font family */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Set font family */
     overflow: hidden; /* Hide overflow to prevent scrolling */
     cursor: pointer; /* Set cursor to pointer initially */
 }
 
 /* Styling for the game area */
 #game-area {
-    width: 100%;
+    width: 100%; /* Occupy full width */
     height: 100vh; /* Full viewport height */
-    background-image: url('../Images/Alienbg.jpg'); /* URL to your background image */
+    background-image: url('../Images/Alienbg.jpg'); /* Set background image */
     background-size: cover; /* Cover the entire game area */
     background-position: center; /* Center the background image */
     position: relative; /* Position relative for absolute positioning of elements inside */
@@ -19,26 +19,26 @@ body {
 }
 
 .title {
-    font-weight: 700;
-    text
+    font-weight: 700; /* Set font weight */
+    text /* Unclear, no effect */
 }
 
 #cursor-overlay {
     width: 100px; /* Adjust width as needed for collision detection */
     height: 100px; /* Adjust height as needed for collision detection */
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: absolute; /* Position absolutely */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
     pointer-events: none; /* Ensure the overlay doesn't block cursor events */
 }
 
 .cursor {
     width: 58px; /* Width of the cursor image */
     height: 30px; /* Height of the cursor image */
-    background-image: url('../Images/flying-saucer.png'); /* URL to your image */
+    background-image: url('../Images/flying-saucer.png'); /* Set cursor image */
     background-size: cover; /* Ensure the image covers the cursor */
-    border-radius: 50%; /* Circular shape */
-    position: absolute;
+    border-radius: 50%; /* Make the cursor circular */
+    position: absolute; /* Position absolutely */
     cursor: none; /* Hide the default cursor */
 }
 
@@ -49,9 +49,9 @@ body {
 
 /* Styling for the black blocks */
 .black {
-    width: 20px;
-    height: 20px;
-    background-image: url('../Images/alienplanet.png'); /* URL to your image */
+    width: 20px; /* Set width */
+    height: 20px; /* Set height */
+    background-image: url('../Images/alienplanet.png'); /* Set background image */
     background-size: cover; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
@@ -60,9 +60,9 @@ body {
 
 /* Styling for the dark purple blocks */
 .darkpurple {
-    width: 30px; /* Adjust width as needed */
-    height: 30px; /* Adjust height as needed */
-    background-image: url('../Images/alienworld.png'); /* URL to your image */
+    width: 30px; /* Set width */
+    height: 30px; /* Set height */
+    background-image: url('../Images/alienworld.png'); /* Set background image */
     background-size: 30px; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
@@ -70,22 +70,48 @@ body {
 }
 
 /* Styling for the red blocks */
+/* Container for the rotating image */
+.red-container {
+    width: 50px; /* Set width */
+    height: 50px; /* Set height */
+    position: relative; /* Set position to relative */
+    animation: block-rotation 1s infinite alternate; /* Add animation for rotation */
+}
+
+/* Styling for the red blocks */
 .red {
-    width: 50px; /* Adjust width as needed */
-    height: 50px; /* Adjust height as needed */
-    background-image: url('../Images/shooting-star.png'); /* URL to your image */
+    width: 100%; /* Set width to fill the container */
+    height: 100%; /* Set height to fill the container */
+    background-color: transparent; /* Make the background transparent */
+}
+
+/* Styling for the image */
+.red-image {
+    width: 100%; /* Set width to fill the container */
+    height: 100%; /* Set height to fill the container */
+    background-image: url('../Images/shooting-star.png'); /* Set background image */
     background-size: cover; /* Set background size to cover the block */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
 }
 
+/* Keyframes for block rotation animation */
+@keyframes block-rotation {
+    from {
+        transform: rotate(-5deg); /* Rotate 5 degrees clockwise */
+    }
+    to {
+        transform: rotate(5deg); /* Rotate 5 degrees counterclockwise */
+    }
+}
+
 .green-circle {
-    width: 40px;
-    height: 40px;
-    background-image: url('../Images/Pointsglow.gif'); /* URL to your GIF image */
+    width: 40px; /* Set width */
+    height: 40px; /* Set height */
+    background-image: url('../Images/Pointsglow.gif'); /* Set background image */
     background-size: cover; /* Set the background size to cover the circle */
     border-radius: 50%; /* Make the circle shape */
-    position: absolute; /* Absolute positioning relative to the game area */
+    position: absolute; /* Position absolutely */
 }
 
 /* Styling for the start menu */
