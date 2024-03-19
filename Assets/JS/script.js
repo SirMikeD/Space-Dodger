@@ -100,61 +100,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to create a new red block
 function createRedBlock() {
-    const redContainer = document.createElement('div');
-    redContainer.classList.add('red-container'); // Add class for the rotating container
-
+    console.log("Creating red block...");
     const redBlock = document.createElement('div');
     redBlock.classList.add('red'); // Add class for the red block
 
-    const redImage = document.createElement('div');
-    redImage.classList.add('red-image'); // Add class for the image container
-
-    // Append the red image container to the red block
-    // Append the red block to the rotating container
-    redContainer.appendChild(redBlock);
-
-    // Append the rotating container to the game area
-    gameArea.appendChild(redContainer);
+    // Append the red block to the game area
+    gameArea.appendChild(redBlock);
 
     // Set initial position at a random horizontal position at the top of the screen
-    redContainer.style.left = `${Math.random() * (gameArea.clientWidth - 50)}px`; // Random horizontal position
-    redContainer.style.top = `${-Math.random() * gameArea.clientHeight}px`; // Random position above the game area
+    redBlock.style.left = `${Math.random() * (gameArea.clientWidth - 50)}px`; // Random horizontal position
+    redBlock.style.top = `0px`; // Start from the top
 
     // Randomize the falling speed
     const fallingSpeed = Math.random() * 3 + 1; // Random value between 1 and 4
     const moveInterval = setInterval(() => {
         // Move the red block down
-        redContainer.style.top = `${parseFloat(redContainer.style.top) + fallingSpeed}px`;
+        redBlock.style.top = `${parseFloat(redBlock.style.top) + fallingSpeed}px`;
 
         // Remove block if it goes out of bounds
-        if (parseFloat(redContainer.style.top) > gameArea.clientHeight) {
+        if (parseFloat(redBlock.style.top) > gameArea.clientHeight) {
             clearInterval(moveInterval); // Stop the interval
-            gameArea.removeChild(redContainer); // Remove the red block from the game area
+            gameArea.removeChild(redBlock); // Remove the red block from the game area
         }
     }, 50); // Move the red block every 50 milliseconds
 }
 
-    // Function to move red blocks smoothly
-    function moveRedBlocks() {
-        const redBlocks = document.querySelectorAll('.red');
-        redBlocks.forEach(block => {
-            // Generate random velocities for horizontal and vertical movement
-            const velocityX = (Math.random() - 0.5) * 2; // Random value between -1 and 1
-            const velocityY = Math.random() * 2 + 1; // Random value between 1 and 3
-            // Update block position based on current velocity
-            block.style.top = `${block.offsetTop + velocityY}px`; // Move block vertically
-            block.style.left = `${block.offsetLeft + velocityX}px`; // Move block horizontally
+// Function to move red blocks smoothly
+function moveRedBlocks() {
+    const redBlocks = document.querySelectorAll('.red');
+    redBlocks.forEach(block => {
+        // Generate random velocities for horizontal and vertical movement
+        const velocityX = (Math.random() - 0.5) * 2; // Random value between -1 and 1
+        const velocityY = Math.random() * 2 + 1; // Random value between 1 and 3
+        // Update block position based on current velocity
+        block.style.top = `${block.offsetTop + velocityY}px`; // Move block vertically
+        block.style.left = `${block.offsetLeft + velocityX}px`; // Move block horizontally
 
-            // Remove block if it goes out of bounds
-            if (
-                block.offsetTop > gameArea.clientHeight ||
-                block.offsetLeft < -50 ||
-                block.offsetLeft > gameArea.clientWidth
-            ) {
-                gameArea.removeChild(block);
-            }
-        });
-    }
+        // Remove block if it goes out of bounds
+        if (
+            block.offsetTop > gameArea.clientHeight ||
+            block.offsetLeft < -50 ||
+            block.offsetLeft > gameArea.clientWidth
+        ) {
+            gameArea.removeChild(block);
+        }
+    });
+}
 
     // Function to move black boxes horizontally
     function moveBlackBoxes() {

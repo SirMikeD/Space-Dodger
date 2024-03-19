@@ -51,7 +51,7 @@ body {
 .black {
     width: 20px; /* Set width */
     height: 20px; /* Set height */
-    background-image: url('../Images/alienplanet.png'); /* Set background image */
+    background-image: url('../Images/alienworld.gif'); /* Set background image */
     background-size: cover; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
@@ -62,37 +62,23 @@ body {
 .darkpurple {
     width: 30px; /* Set width */
     height: 30px; /* Set height */
-    background-image: url('../Images/alienworld.png'); /* Set background image */
+    background-image: url('../Images/alienplanet.gif'); /* Set background image */
     background-size: 30px; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
     border-radius: 50%; /* Make the block circular */
 }
 
-/* Styling for the red blocks */
-/* Container for the rotating image */
-.red-container {
+/* Styling for the red block */
+.red {
     width: 50px; /* Set width */
     height: 50px; /* Set height */
-    position: relative; /* Set position to relative */
-    animation: block-rotation 1s infinite alternate; /* Add animation for rotation */
-}
-
-/* Styling for the red blocks */
-.red {
-    width: 100%; /* Set width to fill the container */
-    height: 100%; /* Set height to fill the container */
-    background-color: transparent; /* Make the background transparent */
-}
-
-/* Styling for the image */
-.red-image {
-    width: 100%; /* Set width to fill the container */
-    height: 100%; /* Set height to fill the container */
-    background-image: url('../Images/shooting-star.png'); /* Set background image */
+    background-image: url('../Images/shootingstar.gif'); /* Set background image */
     background-size: cover; /* Set background size to cover the block */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
+    position: absolute; /* Set position to absolute */
+    animation: block-rotation 1s infinite alternate; /* Apply block-rotation animation */
 }
 
 /* Keyframes for block rotation animation */
