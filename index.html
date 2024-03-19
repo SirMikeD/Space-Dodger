@@ -11,12 +11,20 @@
   <div id="cursor-overlay"></div>
   <div id="timer" class="timer-display"></div>
   <div id="start-menu">
-    <h1>Space Dodger Game</h1>
-    <h2>Top 10 Scores:</h2>
-    <ol id="top-scores"></ol>
-    <button id="start-btn">Start Game</button>
-    <button id="reset-btn">Reset Scores</button> <!-- Add reset button -->
+    <div class="menu-content">
+      <h1>Welcome to Space Dodger</h1>
+      <h3>Hit the energy patterns <img src="Assets/Images/Pointsglow.gif" style="width: 5%; height: auto;"> to earn points. </h3>
+      <h3>Avoid hitting the Planets <img src="Assets/Images/alienworld.png" style="width: 10%; height: auto;"><img src="Assets/Images/alienplanet.png" style="width: 10%; height: auto;"> and stars 
+        <img src="Assets/Images/shooting-star.png" style="width: 15%; height: auto;">, as they will end the game. </h3>
+      <h2>Have fun!</h2>
+      <button id="start-btn">Start Game</button>
+      <button id="reset-btn">Reset Scores</button> <!-- Add reset button -->
+    </div>
+    <div class="scoreboard">
+      <h2>Top 10 Scores:</h2>
+      <ol id="top-scores"></ol>
+    </div>
   </div>
-  <script src="Assets/JS/script.js"></script> 
+  <script src="Assets/JS/script.js"></script>
 </body>
 </html>

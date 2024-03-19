@@ -90,22 +90,30 @@ body {
 
 /* Styling for the start menu */
 #start-menu {
-    display: block; /* Ensure the start menu is initially displayed */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
     position: absolute; /* Absolute positioning relative to game area */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Center the menu */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Occupy full width */
+    height: 100%; /* Occupy full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+  
+  .menu-content {
     text-align: center; /* Center align text */
     color: white; /* Set text color to white */
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
-}
-
-/* Styling for the top scores */
-#top-scores {
-    text-align: left; /* Left align text */
+  }
+  
+  .scoreboard {
+    margin-top: 20px; /* Adjust margin top as needed */
+    text-align: center; /* Center align text */
     color: white; /* Set text color to white */
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
-}
+  }
 
 /* Styling for the timer display */
 .timer-display {
