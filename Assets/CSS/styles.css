@@ -11,8 +11,16 @@ body {
 #game-area {
     width: 100%;
     height: 100vh; /* Full viewport height */
-    background-color: #f0f0f0; /* Light gray background */
+    background-image: url('../Images/Alienbg.jpg'); /* URL to your background image */
+    background-size: cover; /* Cover the entire game area */
+    background-position: center; /* Center the background image */
     position: relative; /* Position relative for absolute positioning of elements inside */
+    background-color: #f0f0f0; /* Fallback background color in case the image is missing or takes time to load */
+}
+
+.title {
+    font-weight: 700;
+    text
 }
 
 #cursor-overlay {
@@ -27,7 +35,7 @@ body {
 .cursor {
     width: 58px; /* Width of the cursor image */
     height: 30px; /* Height of the cursor image */
-    background-image: url('../Images/flying-saucer.jpg'); /* URL to your image */
+    background-image: url('../Images/flying-saucer.png'); /* URL to your image */
     background-size: cover; /* Ensure the image covers the cursor */
     border-radius: 50%; /* Circular shape */
     position: absolute;
@@ -43,7 +51,11 @@ body {
 .black {
     width: 20px;
     height: 20px;
-    background-color: black; /* Black blocks */
+    background-image: url('../Images/alienplanet.png'); /* URL to your image */
+    background-size: cover; /* Set background size to match block size */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    border-radius: 50%; /* Make the block circular */
 }
 
 /* Styling for the dark purple blocks */
@@ -59,9 +71,13 @@ body {
 
 /* Styling for the red blocks */
 .red {
-    width: 20px;
-    height: 20px;
-    background-color: red; /* Red blocks */
+    width: 100%;
+    height: 100%;
+    background-image: url('../Images/shooting-star.png'); /* URL to your image */
+    background-size: 25%; /* Set background size to 50% of its original size */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    transform: rotate(-45deg); /* Rotate the image 25 degrees counterclockwise */
 }
 
 .green-circle {
@@ -80,11 +96,15 @@ body {
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center the menu */
     text-align: center; /* Center align text */
+    color: white; /* Set text color to white */
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
 }
 
 /* Styling for the top scores */
 #top-scores {
     text-align: left; /* Left align text */
+    color: white; /* Set text color to white */
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
 }
 
 /* Styling for the timer display */

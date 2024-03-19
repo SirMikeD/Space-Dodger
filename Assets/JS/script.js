@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const block = document.createElement('div');
         block.classList.add('block', 'red');
         block.style.left = `${Math.random() * (gameArea.clientWidth - 20)}px`; // Random horizontal position
-        block.style.top = '-20px'; // Start from top of the screen
+        block.style.top = '-20px'; // Start from the top of the screen
         gameArea.appendChild(block);
     }
 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function createBlackBox() {
-        const size = Math.floor(Math.random() * 4 + 1); // Random size from 1 to 4
+        const size = Math.floor(Math.random() * 8 + 1); // Random size from 1 to 6
         const blackBox = document.createElement('div');
         blackBox.classList.add('block', 'black');
         blackBox.style.width = `${size * 20}px`; // Set width based on size
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function createDarkPurpleBlock() {
-        const size = Math.floor(Math.random() * 4 + 1); // Random size from 1 to 4
+        const size = Math.floor(Math.random() * 9 + 1); // Random size from 1 to 6
         const imageSize = Math.floor(Math.random() * 50) + 30; // Random size for image from 30px to 80px
         const darkPurpleBlock = document.createElement('div');
         darkPurpleBlock.classList.add('block', 'darkpurple');
