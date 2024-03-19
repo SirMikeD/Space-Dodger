@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setInterval(increaseSpeed, speedIncreaseInterval); // Set interval for increasing speed
         moveRedBlocks(); // Move red blocks immediately after starting the game
         setInterval(moveRedBlocks, baseInterval); // Use baseInterval for moving red blocks
-        setInterval(createRedBlock, 2000);
+        setInterval(createRedBlock, 1000);
         moveBlackBoxes(); // Move black boxes immediately after starting the game
         setInterval(moveBlackBoxes, baseInterval); // Use baseInterval for moving black boxes
         setInterval(createBlackBox, 2000);
