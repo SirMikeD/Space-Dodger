@@ -4,7 +4,6 @@ body {
     padding: 0; /* Remove default padding */
     font-family: Arial, sans-serif; /* Set font family */
     overflow: hidden; /* Hide overflow to prevent scrolling */
-    cursor: pointer; /* Set cursor to pointer initially */
 }
 
 /* Styling for the game area */
@@ -45,13 +44,13 @@ body {
 /* Styling for the generic blocks */
 .block {
     position: absolute; /* Absolute positioning relative to game area */
+    transition: top 0.5s ease; /* Smooth transition for vertical movement */
 }
 
 /* Styling for the black blocks */
 .black {
     width: 20px; /* Set width */
     height: 20px; /* Set height */
-    background-image: url('../Images/alienworld.gif'); /* Set background image */
     background-size: cover; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
@@ -61,27 +60,39 @@ body {
 /* Styling for the dark purple blocks */
 .darkpurple {
     width: 30px; /* Set width */
-    height: 30px; /* Set height */
+    height: 40px; /* Set height */
     background-image: url('../Images/alienplanet.gif'); /* Set background image */
-    background-size: 30px; /* Set background size to match block size */
+    background-size: 500px; /* Set background size to match block size */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
     border-radius: 50%; /* Make the block circular */
 }
 
-/* Styling for the red block */
+/* Styling for the red block - the stars falling */
 .red {
-    width: 50px; /* Set width */
-    height: 50px; /* Set height */
+    /* Adjust the image size */
+    width: 10px; /* Set width for background image */
+    height: 50px; /* Set height for background image */
     background-image: url('../Images/shootingstar.gif'); /* Set background image */
     background-size: cover; /* Set background size to cover the block */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent image from repeating */
-    position: absolute; /* Set position to absolute */
-    animation: block-rotation 1s infinite alternate; /* Apply block-rotation animation */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make the block circular */
+    position: absolute; /* Position absolutely */
+    animation: fall-down var(--duration) linear infinite, block-rotation 1s infinite alternate, glowing 10s infinite alternate; /* Apply fall-down, rotation, and glowing animations */
+    left: calc(100% * var(--random)); /* Randomize initial left position */
+    transform: translateY(-100%); /* Move block up initially */
 }
 
-/* Keyframes for block rotation animation */
+/* Define the fall-down animation */
+@keyframes fall-down {
+    to {
+        transform: translateY(100vh); /* Move block to the bottom of the viewport */
+    }
+}
+
+/* Define the block rotation animation */
 @keyframes block-rotation {
     from {
         transform: rotate(-5deg); /* Rotate 5 degrees clockwise */
@@ -90,6 +101,14 @@ body {
         transform: rotate(5deg); /* Rotate 5 degrees counterclockwise */
     }
 }
+
+/* Define the glowing effect animation */
+@keyframes glowing {
+    7% { box-shadow: inset 0 0 10px 2px rgba(17, 0, 255, 0.7); }
+    25% { box-shadow: inset 0 0 20px 5px rgba(50, 14, 209, 0.7); }
+    35% { box-shadow: inset 0 0 10px 2px rgba(33, 6, 107, 0.7); }
+}
+
 
 .green-circle {
     width: 40px; /* Set width */
@@ -112,20 +131,20 @@ body {
     width: 100%; /* Occupy full width */
     height: 100%; /* Occupy full height */
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  }
-  
-  .menu-content {
+}
+
+.menu-content {
     text-align: center; /* Center align text */
     color: white; /* Set text color to white */
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
-  }
-  
-  .scoreboard {
+}
+
+.scoreboard {
     margin-top: 20px; /* Adjust margin top as needed */
     text-align: center; /* Center align text */
     color: white; /* Set text color to white */
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Add black border effect */
-  }
+}
 
 /* Styling for the timer display */
 .timer-display {
